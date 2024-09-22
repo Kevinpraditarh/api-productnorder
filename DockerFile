@@ -1,0 +1,23 @@
+# Menggunakan base image Golang versi terbaru
+FROM golang:1.20-alpine
+
+# Set environment variables
+ENV GO111MODULE=on
+
+# Set working directory di dalam container
+WORKDIR /app
+
+# Copy semua file dari project Anda ke dalam container
+COPY . .
+
+# Download dependencies
+RUN go mod tidy
+
+# Build aplikasi Go
+RUN go build -o main .
+
+# Expose port 8080 untuk aplikasi Anda
+EXPOSE 8080
+
+# Jalankan aplikasi
+CMD ["./main"]
